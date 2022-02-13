@@ -45,20 +45,20 @@ def convertTextToSpeech(text):
         # number of parallel connections. Here we are using contextlib.closing to
         # ensure the close method of the stream object will be called automatically
         # at the end of the with statement's scope.
-            with closing(response["AudioStream"]) as stream:
-                output = os.path.join("/home/ubuntu", "speech.wav")
+        with closing(response["AudioStream"]) as stream:
+            output = os.path.join("/home/ubuntu", "speech.wav")
                 
 
-            try:
-                # Open a file for writing the output as a binary stream
-                with open(output, "wb") as file:
-                    file.write(stream.read())
+        try:
+            # Open a file for writing the output as a binary stream
+            with open(output, "wb") as file:
+                file.write(stream.read())
                     #return 200
-            except IOError as error:
-                # Could not write to file, exit gracefully
-                print(error)
-                #return 400
-                sys.exit(-1)
+        except IOError as error:
+            # Could not write to file, exit gracefully
+            print(error)
+            #return 400
+            sys.exit(-1)
 
 
 @app.get('/')
