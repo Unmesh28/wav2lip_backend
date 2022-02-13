@@ -21,16 +21,16 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
-def convertTextToSpeech(text):
+# Create a client using the credentials and region defined in the [adminuser]
+# section of the AWS credentials file (~/.aws/credentials).
+session = Session(profile_name="adminuser")
+polly = session.client("polly")
 
-    # Create a client using the credentials and region defined in the [adminuser]
-    # section of the AWS credentials file (~/.aws/credentials).
-    session = Session(profile_name="adminuser")
-    polly = session.client("polly")
 
+def convertTextToSpeech(text):   
     try:
         response = polly.synthesize_speech(
-            Text="This is what you wrote. It'd be cool if it also worked.",
+            Text=text,
             OutputFormat="mp3",
             VoiceId="Joanna",
         )
@@ -40,13 +40,15 @@ def convertTextToSpeech(text):
 
     if "AudioStream" in response:
         with closing(response["AudioStream"]) as stream:
-            output = "speech.mp3"
+            output = "speech.wav"
             try:
                 with open(output, "wb") as file:
                     file.write(stream.read())
+                    return 200
             except IOError as error:
                 print(error)
                 sys.exit(-1)
+                return 400
     else:
         print("Could not stream audio")
         sys.exit(-1)
@@ -61,5 +63,5 @@ async def root():
 async def textToSpeech(text: str):
     #print(convertTextToSpeech(text))
     if convertTextToSpeech(text) == 200 :
-        return FileResponse('/home/ubuntu/speech.wav', media_type="audio/wav")
+        return FileResponse('speech.wav', media_type="audio/wav")
     else : return 400
