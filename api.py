@@ -67,7 +67,7 @@ async def root():
 
 
 @app.get('/textToSpeech')
-async def textToSpeech(text: str):
+def textToSpeech(text: str):
     print(convertTextToSpeech(text))
     if convertTextToSpeech(text) == 200 :
         return FileResponse('/home/ubuntu/speech.wav', media_type="audio/wav")
