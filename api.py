@@ -32,6 +32,8 @@ def convertTextToSpeech(text):
     # Request speech synthesis
         response = polly.synthesize_speech(Text=text, OutputFormat="mp3",
                                             VoiceId="Joanna")
+        print(response)
+        print("Inside Try")
     except (BotoCoreError, ClientError) as error:
         # The service returned an error, exit gracefully
         print(error)
