@@ -44,7 +44,7 @@ def convertTextToSpeec(text):
         # ensure the close method of the stream object will be called automatically
         # at the end of the with statement's scope.
             with closing(response["AudioStream"]) as stream:
-                output = os.path.join(gettempdir(), "speech.mp3")
+                output = os.path.join("/home/ubuntu/wav2lip_backend/", "speech.wav")
                 
 
             try:
@@ -66,4 +66,6 @@ async def root():
 
 @app.get('/textToSpeech')
 async def textToSpeech(text: str):
-    return text
+    if convertTextToSpeec(text) == 200 :
+        return FileResponse('/home/ubuntu/wav2lip_backend/speech.wav', media_type="audio/wav")
+    else : return 400
