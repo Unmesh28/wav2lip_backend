@@ -27,10 +27,10 @@ session = Session(profile_name="adminuser")
 polly = session.client("polly")
 
 
-def convertTextToSpeec(text):
+def convertTextToSpeech(text):
     try:
     # Request speech synthesis
-        response = polly.synthesize_speech(Text="Hello world!", OutputFormat="mp3",
+        response = polly.synthesize_speech(Text=text, OutputFormat="mp3",
                                             VoiceId="Joanna")
     except (BotoCoreError, ClientError) as error:
         # The service returned an error, exit gracefully
@@ -66,6 +66,7 @@ async def root():
 
 @app.get('/textToSpeech')
 async def textToSpeech(text: str):
-    if convertTextToSpeec(text) == 200 :
+    print(convertTextToSpeech(text))
+    if convertTextToSpeech(text) == 200 :
         return FileResponse('/home/ubuntu/wav2lip_backend/speech.wav', media_type="audio/wav")
     else : return 400
