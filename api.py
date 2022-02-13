@@ -29,36 +29,27 @@ def convertTextToSpeech(text):
     polly = session.client("polly")
 
     try:
-    # Request speech synthesis
-        response = polly.synthesize_speech(Text=text, OutputFormat="mp3",
-                                            VoiceId="Joanna")
-        print(response)
-        print("Inside Try")
+        response = polly.synthesize_speech(
+            Text="This is what you wrote. It'd be cool if it also worked.",
+            OutputFormat="mp3",
+            VoiceId="Joanna",
+        )
     except (BotoCoreError, ClientError) as error:
-        # The service returned an error, exit gracefully
         print(error)
         sys.exit(-1)
 
-    # Access the audio stream from the response
     if "AudioStream" in response:
-        # Note: Closing the stream is important because the service throttles on the
-        # number of parallel connections. Here we are using contextlib.closing to
-        # ensure the close method of the stream object will be called automatically
-        # at the end of the with statement's scope.
         with closing(response["AudioStream"]) as stream:
-            output = os.path.join("/home/ubuntu", "speech.wav")
-                
-
-        try:
-            # Open a file for writing the output as a binary stream
-            with open(output, "wb") as file:
-                file.write(stream.read())
-                    #return 200
-        except IOError as error:
-            # Could not write to file, exit gracefully
-            print(error)
-            #return 400
-            sys.exit(-1)
+            output = "speech.mp3"
+            try:
+                with open(output, "wb") as file:
+                    file.write(stream.read())
+            except IOError as error:
+                print(error)
+                sys.exit(-1)
+    else:
+        print("Could not stream audio")
+        sys.exit(-1)
 
 
 @app.get('/')
