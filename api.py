@@ -21,13 +21,13 @@ app.add_middleware(
     allow_headers=['*'],
 )
 
-# Create a client using the credentials and region defined in the [adminuser]
-# section of the AWS credentials file (~/.aws/credentials).
-session = Session(profile_name="adminuser")
-polly = session.client("polly")
-
-
 def convertTextToSpeech(text):
+
+    # Create a client using the credentials and region defined in the [adminuser]
+    # section of the AWS credentials file (~/.aws/credentials).
+    session = Session(profile_name="adminuser")
+    polly = session.client("polly")
+
     try:
     # Request speech synthesis
         response = polly.synthesize_speech(Text=text, OutputFormat="mp3",
@@ -68,7 +68,7 @@ async def root():
 
 @app.get('/textToSpeech')
 async def textToSpeech(text: str):
-    print(convertTextToSpeech(text))
+    #print(convertTextToSpeech(text))
     if convertTextToSpeech(text) == 200 :
         return FileResponse('/home/ubuntu/speech.wav', media_type="audio/wav")
     else : return 400
