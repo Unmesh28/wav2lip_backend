@@ -53,11 +53,11 @@ def convertTextToSpeech(text):
                 # Open a file for writing the output as a binary stream
                 with open(output, "wb") as file:
                     file.write(stream.read())
-                    return 200
+                    #return 200
             except IOError as error:
                 # Could not write to file, exit gracefully
                 print(error)
-                return 400
+                #return 400
                 sys.exit(-1)
 
 
