@@ -64,6 +64,6 @@ async def root():
     return {'hello': 'world'}
 
 
-@app.get('textToSpeech/')
+@app.get('/textToSpeech')
 async def textToSpeech(text: str):
     return text
