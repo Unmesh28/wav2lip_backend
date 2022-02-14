@@ -74,7 +74,7 @@ async def wav2lip(file: UploadFile):
         content = await file.read()  # async read
         await out_file.write(content)  # async write
 
-    subprocess.run(["python", "/home/ubuntu/Wav2Lip/inference.py", "--checkpoint_path", "checkpoints/wav2lip_gan.pth", "--face", "/home/ubuntu/wav2lip_backend/video.mp4", "--audio",  "/home/ubuntu/wav2lip_backend/speech.wav"])
+    subprocess.run(["python", "/home/ubuntu/Wav2Lip/inference.py", "--checkpoint_path", "/home/ubuntu/Wav2Lip/checkpoints/wav2lip_gan.pth", "--face", "/home/ubuntu/wav2lip_backend/video.mp4", "--audio",  "/home/ubuntu/wav2lip_backend/speech.wav"])
     #print("The exit code was: %d" % list_files.returncode)  
     #python inference.py --checkpoint_path checkpoints/wav2lip_gan.pth --face "video.mp4" --audio "/content/sample_data/input_audio.wav"
 
