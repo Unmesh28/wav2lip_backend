@@ -78,5 +78,5 @@ async def wav2lip(file: UploadFile):
     #print("The exit code was: %d" % list_files.returncode)  
     #python inference.py --checkpoint_path checkpoints/wav2lip_gan.pth --face "video.mp4" --audio "/content/sample_data/input_audio.wav"
 
-    return {"Result": "OK"}
+    return FileResponse('/home/ubuntu/Wav2Lip/results/result_voice.mp4', media_type="video/mp4")
     #return {"filename": file.filename}
