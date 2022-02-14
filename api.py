@@ -74,8 +74,8 @@ async def wav2lip(file: UploadFile):
         content = await file.read()  # async read
         await out_file.write(content)  # async write
 
-    list_files = subprocess.run(["ls", "-l"])
-    print("The exit code was: %d" % list_files.returncode)  
+    list_files = subprocess.run(["mkdir", "Unmesh"])
+    #print("The exit code was: %d" % list_files.returncode)  
 
 
     return {"Result": "OK"}
