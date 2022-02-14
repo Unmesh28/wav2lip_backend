@@ -11,6 +11,7 @@ import sys
 import subprocess
 from tempfile import gettempdir
 import aiofiles
+import subprocess
 
 app = FastAPI()
 
@@ -72,6 +73,9 @@ async def wav2lip(file: UploadFile):
     async with aiofiles.open("video.mp4", 'wb') as out_file:
         content = await file.read()  # async read
         await out_file.write(content)  # async write
+
+    subprocess.run("mkdir Unmesh")
+
 
     return {"Result": "OK"}
     #return {"filename": file.filename}
