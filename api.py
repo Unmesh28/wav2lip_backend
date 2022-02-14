@@ -61,7 +61,7 @@ async def root():
     return {'hello': 'world'}
 
 
-@app.get('/textToSpeech')
+@app.post('/textToSpeech')
 async def textToSpeech(text: str):
     #print(convertTextToSpeech(text))
     if convertTextToSpeech(text) == 200 :
