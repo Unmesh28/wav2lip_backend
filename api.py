@@ -61,14 +61,14 @@ async def root():
     return {'hello': 'world'}
 
 
-@app.post('/textToSpeech')
+@app.get('/textToSpeech')
 async def textToSpeech(text: str):
     #print(convertTextToSpeech(text))
     if convertTextToSpeech(text) == 200 :
         return FileResponse('speech.wav', media_type="audio/wav")
     else : return 400
 
-@app.get('/wav2lip')
+@app.post('/wav2lip')
 async def wav2lip(file: UploadFile):
     async with aiofiles.open("video.mp4", 'wb') as out_file:
         content = await file.read()  # async read
