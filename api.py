@@ -10,6 +10,7 @@ import os
 import sys
 import subprocess
 from tempfile import gettempdir
+import aiofiles
 
 app = FastAPI()
 
